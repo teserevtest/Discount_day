@@ -1,15 +1,27 @@
 package ru.ykul;
+
 import org.kohsuke.args4j.*;
-import ru.ykul.service.FileOrderService;
-import ru.ykul.service.OrderService;
+import ru.ykul.objects.Options;
+import ru.ykul.objects.OrderManager;
 
 public class Main {
-    public static void main(String[] args) {
-        private int discount = Integer.parseInt(args.[0]);
-        private int cost = Integer.parseInt(args.[1]);
-        private int bagWeight = 50;
-        private static String OUTPUT_FILE = "discount_day_orders.txt";
 
+    public void parseArgs(String[] args) throws Exception {
+        Options options = new Options();
+        CmdLineParser parser = new CmdLineParser(options);
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            throw new IllegalArgumentException("");
+        }
+
+
+        new OrderManager(options);
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().parseArgs(args);
     }
 
 

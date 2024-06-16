@@ -9,17 +9,16 @@ import java.util.List;
 
 
 public class FileOrderService {
+    private String inputFile;
 
-    public FileOrderService(String workingDirectory, String inputFile) {
-//        WORK_DIR = String.valueOf(FileOrderService.class.getResource(inputFile));
+    public FileOrderService(String inputFile) {
+        this.inputFile=inputFile;
     }
 
-
-
-   public List<Order> read(String inputFile) throws Exception {
+   public List<Order> read() throws Exception {
 
         ArrayList<Order> orderArrayList = new ArrayList<Order>();
-        try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(this.inputFile))) {
             String line;
             while((line =br.readLine())!=null)
 
