@@ -7,27 +7,23 @@ import java.util.*;
 public class OrderService {
     private double discount;
     private double cost;
+    private double costStep;
 
-
-    public double getDiscount() {
-        return discount;
-    }
+    public void setCostStep(double costStep) {      this.costStep = costStep;    }
 
     private void setDiscount(double discount) {
         this.discount = discount;
     }
 
-    public double getCost() {
-        return cost;
-    }
-
     private void setCost(double cost) {
         //make cost per kilogram from cost of bag 50 kg
-        this.cost = cost/50;
+        this.cost = cost / 50;
     }
 
-    public OrderService(double discount, double cost) {
-        setCost(cost);setDiscount(discount);
+    public OrderService(double discount, double cost, double costStep) {
+        setCost(cost);
+        setDiscount(discount);
+        setCostStep(costStep);
     }
 
     private ArrayList<Order> sort(ArrayList<Order> orderArrayList) {
@@ -38,22 +34,21 @@ public class OrderService {
     }
 
 
-
     private double getPrice(int orderWeight) {
         double result = orderWeight * (cost * ((100 - discount) / 100.0));
-        if (discount >= 5) {
-            discount -= 5;
+        if (discount >= costStep) {
+            discount -= costStep;
         }
         return result;
 
     }
 
     public Map processing(ArrayList<Order> orderArrayList) {
-        Map<Order,Double> orderMap = new LinkedHashMap<>();
+        Map<Order, Double> orderMap = new LinkedHashMap<>();
 
 
-        for (var order:sort(orderArrayList)){
-            orderMap.put(order,getPrice(order.getWeight()));
+        for (var order : sort(orderArrayList)) {
+            orderMap.put(order, getPrice(order.getWeight()));
         }
 
         return orderMap;
