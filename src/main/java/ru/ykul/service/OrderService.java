@@ -28,7 +28,6 @@ public class OrderService {
 
     private ArrayList<Order> sort(ArrayList<Order> orderArrayList) {
         Collections.sort(orderArrayList, Comparator.comparing(Order::getDate));
-
         return orderArrayList;
 
     }
@@ -44,11 +43,11 @@ public class OrderService {
     }
 
     public Map processing(ArrayList<Order> orderArrayList) {
-        Map<Order, Double> orderMap = new LinkedHashMap<>();
+        Map<String, Double> orderMap = new LinkedHashMap<>();
 
 
         for (var order : sort(orderArrayList)) {
-            orderMap.put(order, getPrice(order.getWeight()));
+            orderMap.put(order.getClientName(), getPrice(order.getWeight()));
         }
 
         return orderMap;

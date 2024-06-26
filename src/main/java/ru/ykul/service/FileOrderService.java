@@ -45,28 +45,12 @@ public class FileOrderService {
 
     public void write(Map orderMap) throws Exception {
 
-        URL res = FileOrderService.class.getResource(outputFile);
-        System.out.println(res);
 
-
-        try (PrintWriter writer = new PrintWriter(res.toString())) {
-            orderMap.forEach((key, value) -> writer.println(key.getClass().getDeclaredField(clientName) + " : " + value));
-
-
-            Set set = orderMap.entrySet();
-            Iterator i = set.iterator();
-            while(i.hasNext()) {
-                Map.Entry me = (Map.Entry)i.next();
-
-                writer.println(me.getKey());
-                System.out.print(me.getKey() + ": ");
-                System.out.println(me.getValue());
-            }
-
-
-            writer.println("Hello World");
+        try (PrintWriter writer = new PrintWriter(new File(outputFile))) {
+            orderMap.forEach((key, value) -> writer.println(key+ " - " + value));
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new Exception("Ошибка записи в файл");
         }
     }
