@@ -96,3 +96,8 @@ nb-configuration.xml
 ## Miscellaneous
 ##############################
 *.log
+
+##############################
+## project
+##############################
+discount_day_orders.txt
