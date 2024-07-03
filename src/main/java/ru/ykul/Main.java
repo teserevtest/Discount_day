@@ -7,7 +7,7 @@ public class Main {
     private static int discount = 50;
     private static int cost = 500;
     private static int discountStep = 5;
-    private static String inFileName = "/discount_day.txt";
+    private static String inFileName = "discount_day.txt";
     private static String outFileName = "orders.txt";
 
 

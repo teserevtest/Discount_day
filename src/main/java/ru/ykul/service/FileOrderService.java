@@ -25,16 +25,15 @@ public class FileOrderService {
 
     public List<Order> read() throws Exception {
 
-        List<Order> orderArrayList = new ArrayList<Order>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FileOrderService.class.getResource(inputFile).getFile()))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                orderArrayList.add(parseStringToOrder(line));
-            }
-        } catch (IOException e) {
-            throw new Exception();
+        String lines[] = convertInputStreamToString(getFileFromResourceAsStream(inputFile)).split("\\r?\\n");
+
+
+        List<Order> orderArrayList = new ArrayList<Order>();
+        for (String s : lines) {
+            orderArrayList.add(parseStringToOrder(s));
         }
+
         return orderArrayList;
     }
 
@@ -46,13 +45,38 @@ public class FileOrderService {
     public void write(Map orderMap) throws Exception {
 
 
-        try (PrintWriter writer = new PrintWriter(new File(outputFile))) {
-            orderMap.forEach((key, value) -> writer.println(key+ " - " + value));
+        try (PrintWriter writer = new PrintWriter( new File(this.getClass().getResource("").getPath())+"/"+outputFile)) {
+            orderMap.forEach((key, value) -> writer.println(key + " - " + value));
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new Exception("Ошибка записи в файл");
         }
     }
+
+    private InputStream getFileFromResourceAsStream(String fileName) {
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        if (inputStream == null) {
+            throw new IllegalArgumentException("Input file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
+    public static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            stringBuilder.append(line).append("\n");
+        }
+        bufferedReader.close();
+        return stringBuilder.toString();
+    }
+
 
 }
