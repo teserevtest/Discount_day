@@ -23,10 +23,10 @@ public class OrderManager {
     }
 
     public void getOrdersCosts() throws Exception {
-        FileOrderService fileOrderService = new FileOrderService(inFileName, outFileName);
+        FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService(discount, cost, discountStep);
 
-        fileOrderService.write(orderService.processing((ArrayList<Order>) fileOrderService.read()));
+        fileOrderService.write(orderService.processing((ArrayList<Order>) fileOrderService.read(inFileName)),outFileName);
     }
     public static int getDiscount() {
         return discount;

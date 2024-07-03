@@ -1,6 +1,7 @@
 package ru.ykul.service;
 
 import ru.ykul.objects.Order;
+import ru.ykul.objects.OrderReport;
 
 import java.io.*;
 import java.net.URL;
@@ -15,15 +16,13 @@ import static java.nio.charset.StandardCharsets.*;
 
 
 public class FileOrderService {
-    private String inputFile;
-    private String outputFile;
 
-    public FileOrderService(String inputFile, String outputFile) {
-        this.inputFile = inputFile;
-        this.outputFile = outputFile;
+    private final String ORDER_PATH = this.getClass().getResource("").getPath();
+
+    public FileOrderService() {
     }
 
-    public List<Order> read() throws Exception {
+    public List<Order> read(String inputFile) throws Exception {
 
 
         String lines[] = convertInputStreamToString(getFileFromResourceAsStream(inputFile)).split("\\r?\\n");
@@ -42,11 +41,11 @@ public class FileOrderService {
         return new Order(LocalDateTime.parse(parts[0]), parts[1], Integer.parseInt(parts[2]));
     }
 
-    public void write(Map orderMap) throws Exception {
+    public void write(OrderReport orderMap, String outputFile) throws Exception {
 
 
-        try (PrintWriter writer = new PrintWriter( new File(this.getClass().getResource("").getPath())+"/"+outputFile)) {
-            orderMap.forEach((key, value) -> writer.println(key + " - " + value));
+        try (PrintWriter writer = new PrintWriter(new File(ORDER_PATH) + "/" + outputFile)) {
+            orderMap.getOrderReportMap().forEach((key, value) -> writer.println(key + " - " + value));
 
         } catch (IOException e) {
             e.printStackTrace();

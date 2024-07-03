@@ -1,6 +1,7 @@
 package ru.ykul.service;
 
 import ru.ykul.objects.Order;
+import ru.ykul.objects.OrderReport;
 
 import java.util.*;
 
@@ -9,7 +10,9 @@ public class OrderService {
     private double cost;
     private double costStep;
 
-    public void setCostStep(double costStep) {      this.costStep = costStep;    }
+    public void setCostStep(double costStep) {
+        this.costStep = costStep;
+    }
 
     private void setDiscount(double discount) {
         this.discount = discount;
@@ -42,15 +45,15 @@ public class OrderService {
 
     }
 
-    public Map processing(ArrayList<Order> orderArrayList) {
-        Map<String, Double> orderMap = new LinkedHashMap<>();
+    public OrderReport processing(ArrayList<Order> orderArrayList) {
+        OrderReport orderReport = new OrderReport();
 
 
         for (var order : sort(orderArrayList)) {
-            orderMap.put(order.getClientName(), getPrice(order.getWeight()));
+            orderReport.putToMap(order.getClientName(), getPrice(order.getWeight()));
         }
 
-        return orderMap;
+        return orderReport;
     }
 
 }
