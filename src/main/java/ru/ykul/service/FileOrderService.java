@@ -19,8 +19,6 @@ public class FileOrderService {
 
     private final String ORDER_PATH = this.getClass().getResource("").getPath();
 
-    public FileOrderService() {
-    }
 
     public List<Order> read(String inputFile) throws Exception {
 
@@ -48,7 +46,6 @@ public class FileOrderService {
             orderMap.getOrderReportMap().forEach((key, value) -> writer.println(key + " - " + value));
 
         } catch (IOException e) {
-            e.printStackTrace();
             throw new Exception("Ошибка записи в файл");
         }
     }

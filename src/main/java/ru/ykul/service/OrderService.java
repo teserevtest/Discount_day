@@ -48,8 +48,8 @@ public class OrderService {
     public OrderReport processing(ArrayList<Order> orderArrayList) {
         OrderReport orderReport = new OrderReport();
 
-
         for (var order : sort(orderArrayList)) {
+
             orderReport.putToMap(order.getClientName(), getPrice(order.getWeight()));
         }
 

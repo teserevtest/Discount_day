@@ -22,31 +22,16 @@ public class OrderManager {
         setOutFileName(outFileName);
     }
 
-    public void getOrdersCosts() throws Exception {
+    public void writeOrderReport() throws Exception {
         FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService(discount, cost, discountStep);
 
-        fileOrderService.write(orderService.processing((ArrayList<Order>) fileOrderService.read(inFileName)),outFileName);
-    }
-    public static int getDiscount() {
-        return discount;
-    }
-
-    public static int getCost() {
-        return cost;
+        fileOrderService.write(
+                orderService.processing(
+                        (ArrayList<Order>) fileOrderService.read(inFileName)),
+                outFileName);
     }
 
-    public static int getDiscountStep() {
-        return discountStep;
-    }
-
-    public static String getInFileName() {
-        return inFileName;
-    }
-
-    public static String getOutFileName() {
-        return outFileName;
-    }
 
     private void setDiscount(int discount) {
         this.discount = discount;
