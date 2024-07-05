@@ -16,14 +16,21 @@ import static java.nio.charset.StandardCharsets.*;
 
 
 public class FileOrderService {
+    public FileOrderService(String inFileName, String outFileName) {
+        this.inFileName = inFileName;
+        this.outFileName = outFileName;
+    }
 
-    private final String ORDER_PATH = this.getClass().getResource("").getPath();
+    private String inFileName;
+    private String outFileName;
+
+    private final String ORDER_PATH = this.getClass().getClassLoader().getResource("orders").getPath();
 
 
-    public List<Order> read(String inputFile) throws Exception {
+    public List<Order> read() throws Exception {
 
 
-        String lines[] = convertInputStreamToString(getFileFromResourceAsStream(inputFile)).split("\\r?\\n");
+        String lines[] = convertInputStreamToString(getFileFromResourceAsStream(this.inFileName)).split("\\r?\\n");
 
 
         List<Order> orderArrayList = new ArrayList<Order>();
@@ -34,20 +41,21 @@ public class FileOrderService {
         return orderArrayList;
     }
 
-    private Order parseStringToOrder(String string) {
-        String[] parts = string.split("\\|");
-        return new Order(LocalDateTime.parse(parts[0]), parts[1], Integer.parseInt(parts[2]));
-    }
 
-    public void write(OrderReport orderMap, String outputFile) throws Exception {
+    public void write(OrderReport orderMap) throws Exception {
 
 
-        try (PrintWriter writer = new PrintWriter(new File(ORDER_PATH) + "/" + outputFile)) {
+        try (PrintWriter writer = new PrintWriter(new File(ORDER_PATH) + "/" + this.outFileName)) {
             orderMap.getOrderReportMap().forEach((key, value) -> writer.println(key + " - " + value));
 
         } catch (IOException e) {
             throw new Exception("Ошибка записи в файл");
         }
+    }
+
+    private Order parseStringToOrder(String string) {
+        String[] parts = string.split("\\|");
+        return new Order(LocalDateTime.parse(parts[0]), parts[1], Integer.parseInt(parts[2]));
     }
 
     private InputStream getFileFromResourceAsStream(String fileName) {
@@ -63,7 +71,7 @@ public class FileOrderService {
 
     }
 
-    public static String convertInputStreamToString(InputStream inputStream) throws IOException {
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
         String line;

@@ -10,12 +10,8 @@ public class OrderReport {
         return orderReportMap;
     }
 
-    public static void setOrderReportMap(Map orderReportMap) {
-        OrderReport.orderReportMap = orderReportMap;
-    }
-
     public void putToMap(String key, Double value) {
-        orderReportMap.put(key, value);
+        orderReportMap.put(key, orderReportMap.getOrDefault(key, 0.0) + value);
     }
 
 }
