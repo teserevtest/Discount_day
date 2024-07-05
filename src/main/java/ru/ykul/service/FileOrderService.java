@@ -27,29 +27,31 @@ public class FileOrderService {
     private final String ORDER_PATH = this.getClass().getClassLoader().getResource("orders").getPath();
 
 
-    public List<Order> read() throws Exception {
+    public List<Order> read() {
 
+        String lines[] = new String[0];
 
-        String lines[] = convertInputStreamToString(getFileFromResourceAsStream(this.inFileName)).split("\\r?\\n");
-
+        try {
+            lines = convertInputStreamToString(getFileFromResourceAsStream(this.inFileName)).split("\\r?\\n");
+        } catch (IOException e) {
+            throw new RuntimeException("The file cannot be processed or is missing");
+        }
 
         List<Order> orderArrayList = new ArrayList<Order>();
         for (String s : lines) {
             orderArrayList.add(parseStringToOrder(s));
         }
-
         return orderArrayList;
     }
 
 
-    public void write(OrderReport orderMap) throws Exception {
-
+    public void write(OrderReport orderMap) {
 
         try (PrintWriter writer = new PrintWriter(new File(ORDER_PATH) + "/" + this.outFileName)) {
             orderMap.getOrderReportMap().forEach((key, value) -> writer.println(key + " - " + value));
 
         } catch (IOException e) {
-            throw new Exception("Ошибка записи в файл");
+            throw new RuntimeException("Ошибка записи в файл");
         }
     }
 

@@ -29,7 +29,6 @@ public class OrderService {
         Collections.sort(orderArrayList, Comparator.comparing(Order::getDate));
         return orderArrayList;
     }
-
     private double getPrice(int orderWeight) {
         double result = orderWeight * (cost * ((100 - discount) / 100.0));
         if (discount >= costStep) {
