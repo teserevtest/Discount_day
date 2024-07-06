@@ -1,7 +1,7 @@
 package ru.ykul;
 
-import ru.ykul.objects.OrderManager;
-import ru.ykul.objects.OrderReport;
+import ru.ykul.manager.OrderManager;
+import ru.ykul.model.OrderReport;
 import ru.ykul.service.FileOrderService;
 import ru.ykul.service.OrderService;
 
@@ -16,12 +16,12 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        FileOrderService fileOrderService = new FileOrderService(inFileName, outFileName);
+        FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService(discount, cost, discountStep, bagWeight);
         OrderReport orderReport = new OrderReport();
         OrderManager orderManager = new OrderManager(orderService, fileOrderService, orderReport);
 
-        orderManager.writeOrderReport();
+        orderManager.writeOrderReport(inFileName, outFileName);
     }
 
 

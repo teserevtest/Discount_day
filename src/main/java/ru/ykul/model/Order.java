@@ -1,4 +1,4 @@
-package ru.ykul.objects;
+package ru.ykul.model;
 
 import java.time.LocalDateTime;
 
