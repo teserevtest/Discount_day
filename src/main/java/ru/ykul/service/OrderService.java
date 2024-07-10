@@ -6,8 +6,9 @@ import ru.ykul.model.OrderReport;
 import java.util.*;
 
 public class OrderService {
-    public OrderReport processing(List<Order> orderArrayList, OrderReport orderReport, double discount, double cost, double costStep, int bagWeight) {
+    public OrderReport processing(List<Order> orderArrayList, double discount, double cost, double costStep, int bagWeight) {
         cost = cost / bagWeight;
+        OrderReport orderReport = new OrderReport();
         for (var order : sort((ArrayList<Order>) orderArrayList)) {
             orderReport.putToMap(order.getClientName(), getPrice(order.getWeight(), discount, cost));
             if (discount >= costStep) {

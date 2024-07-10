@@ -16,8 +16,7 @@ public class Main {
     public static void main(String[] args){
         FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService();
-        OrderReport orderReport = new OrderReport();
         OrderManager orderManager = new OrderManager(orderService, fileOrderService);
-        orderManager.writeOrderReport(inFileName, outFileName,orderReport,discount, cost, discountStep, bagWeight);
+        orderManager.writeOrderReport(inFileName, outFileName,discount, cost, discountStep, bagWeight);
     }
 }

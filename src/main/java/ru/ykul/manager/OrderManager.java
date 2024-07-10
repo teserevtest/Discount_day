@@ -16,9 +16,9 @@ public class OrderManager {
         this.orderService = orderService;
     }
 
-    public void writeOrderReport(String inFileName, String outFileName, OrderReport orderReport, double discount, double cost, double discountStep, int bagWeight) {
+    public void writeOrderReport(String inFileName, String outFileName, double discount, double cost, double discountStep, int bagWeight) {
         List<Order> orderlist = fileOrderService.read(inFileName);
-        orderReport = orderService.processing(orderlist, orderReport, discount, cost, discountStep, bagWeight);
+        OrderReport orderReport = orderService.processing(orderlist, discount, cost, discountStep, bagWeight);
         fileOrderService.write(orderReport, outFileName);
     }
 }
