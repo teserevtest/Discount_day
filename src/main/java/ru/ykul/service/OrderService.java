@@ -6,10 +6,10 @@ import ru.ykul.model.OrderReport;
 import java.util.*;
 
 public class OrderService {
-    public OrderReport processing(List<Order> orderArrayList, double discount, double cost, double costStep, int bagWeight) {
-        cost = cost / bagWeight;
+    public OrderReport processing(List<Order> orderList, double discount, double costOfBag, double costStep, int bagWeight) {
+        double cost = costOfBag / bagWeight;
         OrderReport orderReport = new OrderReport();
-        for (var order : sort((ArrayList<Order>) orderArrayList)) {
+        for (Order order : sort(orderList)) {
             orderReport.putToMap(order.getClientName(), getPrice(order.getWeight(), discount, cost));
             if (discount >= costStep) {
                 discount -= costStep;
@@ -18,9 +18,9 @@ public class OrderService {
         return orderReport;
     }
 
-    private List<Order> sort(ArrayList<Order> orderArrayList) {
-        Collections.sort(orderArrayList, Comparator.comparing(Order::getDate));
-        return orderArrayList;
+    private List<Order> sort(List<Order> orderList) {
+        Collections.sort(orderList, Comparator.comparing(Order::getDate));
+        return orderList;
     }
 
     private double getPrice(int orderWeight, double discount, double cost) {

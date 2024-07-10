@@ -14,11 +14,11 @@ public class FileOrderService {
 
     public List<Order> read(String inFileName) {
         String lines[] = getFileAsString(inFileName).split("\\r?\\n");
-        List<Order> orderArrayList = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
         for (String s : lines) {
-            orderArrayList.add(parseStringToOrder(s));
+            orders.add(parseStringToOrder(s));
         }
-        return orderArrayList;
+        return orders;
     }
 
     public void write(OrderReport orderMap, String outFileName) {
