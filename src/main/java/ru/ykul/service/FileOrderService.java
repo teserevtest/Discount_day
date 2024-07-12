@@ -17,7 +17,7 @@ public class FileOrderService {
         List<Order> orders = new ArrayList<>();
         if (!inFileName.endsWith(".txt")) {
             FileAdapter fileAdapter = new FileAdapter(lines);
-            lines=fileAdapter.getTrueLines();
+            lines = fileAdapter.getTrueLines();
         }
         for (String s : lines) {
             orders.add(parseStringToOrder(s));

@@ -13,10 +13,10 @@ public class Main {
     private static String inFileName = "discount_day";
     private static String outFileName = "orders.txt";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService();
         OrderManager orderManager = new OrderManager(orderService, fileOrderService);
-        orderManager.writeOrderReport(inFileName, outFileName,discount, cost, discountStep, bagWeight);
+        orderManager.writeOrderReport(inFileName, outFileName, discount, cost, discountStep, bagWeight);
     }
 }
