@@ -6,7 +6,7 @@ import ru.ykul.model.OrderReport;
 import java.util.*;
 
 public class OrderService {
-    public OrderReport processing(List<Order> orderList, double discount, double costOfBag, double costStep, int bagWeight) {
+    public OrderReport createOrderReport(List<Order> orderList, double discount, double costOfBag, double costStep, int bagWeight) {
         double cost = costOfBag / bagWeight;
         OrderReport orderReport = new OrderReport();
         for (Order order : sort(orderList)) {
