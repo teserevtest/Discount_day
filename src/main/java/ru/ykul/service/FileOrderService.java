@@ -15,6 +15,10 @@ public class FileOrderService {
     public List<Order> read(String inFileName) {
         String lines[] = getFileAsString(inFileName).split("\\r?\\n");
         List<Order> orders = new ArrayList<>();
+        if (!inFileName.endsWith(".txt")) {
+            FileAdapter fileAdapter = new FileAdapter(lines);
+            lines=fileAdapter.getTrueLines();
+        }
         for (String s : lines) {
             orders.add(parseStringToOrder(s));
         }
