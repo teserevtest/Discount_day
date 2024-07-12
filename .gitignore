@@ -101,3 +101,4 @@ nb-configuration.xml
 ## project
 ##############################
 discount_day_orders.txt
+src/main/resources/orders/discount_day
