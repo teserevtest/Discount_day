@@ -8,21 +8,12 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
 public class FileOrderService {
     private static final String ORDER_PATH = Main.class.getClassLoader().getResource("orders").getPath().toString();
 
-    public List<Order> read(String inFileName) {
+    public String[] read(String inFileName) {
         String lines[] = getFileAsString(inFileName).split("\\r?\\n");
-        List<Order> orders = new ArrayList<>();
-        if (!inFileName.endsWith(".txt")) {
-            FileAdapter fileAdapter = new FileAdapter(lines);
-            lines = fileAdapter.getTrueLines();
-        }
-        for (String s : lines) {
-            orders.add(parseStringToOrder(s));
-        }
-        return orders;
+        return lines;
     }
 
     public void write(OrderReport orderMap, String outFileName) {
@@ -31,11 +22,6 @@ public class FileOrderService {
         } catch (IOException e) {
             throw new RuntimeException("Ошибка записи в файл");
         }
-    }
-
-    private Order parseStringToOrder(String string) {
-        String[] parts = string.split("\\|");
-        return new Order(LocalDateTime.parse(parts[0]), parts[1], Integer.parseInt(parts[2]));
     }
 
     private static String getFileAsString(String fileName) {
