@@ -3,13 +3,10 @@ package ru.ykul.manager;
 import ru.ykul.model.Order;
 import ru.ykul.model.OrderReport;
 import ru.ykul.service.FileOrderService;
-import ru.ykul.service.OrderParserFactory;
+import ru.ykul.service.orderparsers.OrderParserFactory;
 import ru.ykul.service.OrderService;
 import ru.ykul.service.orderparsers.OrderParser;
-import ru.ykul.service.orderparsers.OrderParserByOctothorpe;
-import ru.ykul.service.orderparsers.OrderParserByPipe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManager {
