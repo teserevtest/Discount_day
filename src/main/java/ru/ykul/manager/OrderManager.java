@@ -19,8 +19,8 @@ public class OrderManager {
     }
 
     public void writeOrderReport(String inFileName, String outFileName, double discount, double cost, double discountStep, int bagWeight) {
-        String[] stringOrders = fileOrderService.read(inFileName);
         OrderParser orderParser = OrderParserFactory.getOrderParser(inFileName);
+        String[] stringOrders = fileOrderService.read(inFileName);
         List<Order> orders = orderParser.getOrderList(stringOrders);
         OrderReport orderReport = orderService.createOrderReport(orders, discount, cost, discountStep, bagWeight);
         fileOrderService.write(orderReport, outFileName);
