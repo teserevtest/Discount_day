@@ -12,11 +12,20 @@ public class FileOrderService {
     private static final String ORDER_PATH = Main.class.getClassLoader().getResource("orders").getPath().toString();
 
     public String[] read(String inFileName) {
+        if ((inFileName == null) || (inFileName == "")) {
+            throw new IllegalArgumentException("Incorrect value");
+        }
         String lines[] = getFileAsString(inFileName).split("\\r?\\n");
         return lines;
     }
 
     public void write(OrderReport orderMap, String outFileName) {
+        if ((orderMap == null) || (outFileName == null) || (outFileName == "")) {
+            throw new IllegalArgumentException("Incorrect value");
+        }
+        if (orderMap.toString().length() == 0) {
+            throw new IllegalArgumentException("OrderReport is empty!");
+        }
         try (PrintWriter writer = new PrintWriter(ORDER_PATH + "/" + outFileName)) {
             writer.write(orderMap.toString());
         } catch (IOException e) {
