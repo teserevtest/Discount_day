@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class FileOrderServiceTest {
@@ -105,12 +104,9 @@ class FileOrderServiceTest {
     @DisplayName("8. write empty report")
     void fileOrderService_write_shouldThrowException_ifOrderReportIsEmpty() {
         String fileName = "fileOrderService_write_shouldThrowException_ifOrderReportIsEmpty.txt";
-
-        OrderReport orderReport1 = new OrderReport();
-        System.out.println(orderReport1);
-
+        OrderReport orderReport = new OrderReport();
         assertThrows(IllegalArgumentException.class, () -> {
-            fileOrderService.write(orderReport1, fileName);
+            fileOrderService.write(orderReport, fileName);
         }, "OrderReport is empty!");
     }
 
@@ -125,11 +121,5 @@ class FileOrderServiceTest {
         }, "Output file name is empty!");
     }
 
-    @AfterEach
-    public void wipeData()
-    {
-        OrderReport orderReport = new OrderReport();
-        orderReport = null;
 
-    }
 }
