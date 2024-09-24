@@ -12,14 +12,16 @@ import java.util.List;
 public class OrderManager {
     private final OrderService orderService;
     private final FileOrderService fileOrderService;
+    private  final OrderParserFactory orderParserFactory;
 
-    public OrderManager(OrderService orderService, FileOrderService fileOrderService) {
+    public OrderManager(OrderService orderService, FileOrderService fileOrderService,OrderParserFactory orderParserFactory) {
         this.fileOrderService = fileOrderService;
         this.orderService = orderService;
+        this.orderParserFactory = orderParserFactory;
     }
 
     public void writeOrderReport(String inFileName, String outFileName, double discount, double cost, double discountStep, int bagWeight) {
-        OrderParser orderParser = OrderParserFactory.getOrderParser(inFileName);
+        OrderParser orderParser = orderParserFactory.getOrderParser(inFileName);
         String[] stringOrders = fileOrderService.read(inFileName);
         List<Order> orders = orderParser.getOrderList(stringOrders);
         OrderReport orderReport = orderService.createOrderReport(orders, discount, cost, discountStep, bagWeight);

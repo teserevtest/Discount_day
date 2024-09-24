@@ -1,7 +1,7 @@
 package ru.ykul.service.orderparsers;
 
 public class OrderParserFactory {
-    public static OrderParser getOrderParser(String filename) {
+    public OrderParser getOrderParser(String filename) {
         String end = filename.substring(filename.lastIndexOf("."));
         if (end == null) {
             return new OrderParserByOctothorpe();

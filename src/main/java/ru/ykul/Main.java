@@ -4,6 +4,7 @@ import ru.ykul.manager.OrderManager;
 import ru.ykul.model.OrderReport;
 import ru.ykul.service.FileOrderService;
 import ru.ykul.service.OrderService;
+import ru.ykul.service.orderparsers.OrderParserFactory;
 
 public class Main {
     private static int discount = 50;
@@ -16,7 +17,9 @@ public class Main {
     public static void main(String[] args) {
         FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService();
-        OrderManager orderManager = new OrderManager(orderService, fileOrderService);
+        OrderParserFactory orderParserFactory = new OrderParserFactory();
+        OrderManager orderManager = new OrderManager(orderService, fileOrderService, orderParserFactory);
+
         orderManager.writeOrderReport(inFileName, outFileName, discount, cost, discountStep, bagWeight);
     }
 }
