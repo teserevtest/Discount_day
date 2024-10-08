@@ -54,12 +54,14 @@ public class OrderManagerTest {
         when(orderServiceMock.createOrderReport(orderParserRefund, discount, cost, discountStep, bagWeight)).thenReturn(orderReport);
         when(orderParserMock.getOrderList(fileorderserviceReadRefund)).thenReturn(orderParserRefund);
         when(fileOrderServiceMock.read(testInFileNamePipe)).thenReturn(fileorderserviceReadRefund);
-        when(orderParserFactoryMock.getOrderParser(testInFileNameOct)).thenReturn(new OrderParserByOctothorpe());
+        when(orderParserFactoryMock.getOrderParser(testInFileNamePipe)).thenReturn(orderParserMock);
 
 
         orderManagerMocked.writeOrderReport(testInFileNamePipe, testOutFileName, discount, cost, discountStep, bagWeight);
-        verify(orderManagerMocked, atLeastOnce()).writeOrderReport(testInFileNamePipe, testOutFileName, discount, cost, discountStep, bagWeight);
+        verify(orderParserFactoryMock, atLeastOnce()).getOrderParser(testInFileNamePipe);
         verify(orderParserMock, atLeastOnce()).getOrderList(fileorderserviceReadRefund);
+        verify(fileOrderServiceMock,atLeastOnce()).read(testInFileNamePipe);
+        verify(orderServiceMock,atLeastOnce()).createOrderReport(orderParserRefund, discount, cost, discountStep, bagWeight) ;
 
 
     }
