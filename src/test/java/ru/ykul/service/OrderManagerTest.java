@@ -62,7 +62,5 @@ public class OrderManagerTest {
         verify(orderParserMock, atLeastOnce()).getOrderList(fileorderserviceReadRefund);
         verify(fileOrderServiceMock,atLeastOnce()).read(testInFileNamePipe);
         verify(orderServiceMock,atLeastOnce()).createOrderReport(orderParserRefund, discount, cost, discountStep, bagWeight) ;
-
-
     }
 }
