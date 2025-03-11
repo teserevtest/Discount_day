@@ -18,12 +18,20 @@ public class OrderService {
         return orderReport;
     }
 
-    private List<Order> sort(List<Order> orderList) {
+    List<Order> sort(List<Order> orderList) {
         Collections.sort(orderList, Comparator.comparing(Order::getDate));
         return orderList;
     }
 
-    private double getPrice(int orderWeight, double discount, double cost) {
+    double getPrice(int orderWeight, double discount, double cost) {
+        if (orderWeight <= 0) {
+            throw new IllegalArgumentException("Вес заказа должен быть натуральным числом больше 0");
+        }
+        if (discount < 0 || discount > 100) {
+            throw new IllegalArgumentException("Скидка должна быть от 0 до 100%");
+        }
         return orderWeight * (cost * ((100 - discount) / 100.0));
     }
 }
+
+
