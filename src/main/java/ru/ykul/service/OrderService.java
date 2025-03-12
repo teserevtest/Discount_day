@@ -7,6 +7,15 @@ import java.util.*;
 
 public class OrderService {
     public OrderReport createOrderReport(List<Order> orderList, double discount, double costOfBag, double costStep, int bagWeight) {
+        if (orderList.isEmpty()) {
+            throw new IllegalArgumentException("Пустой лист заказов");
+        }
+        if (costOfBag <= 0) {
+            throw new IllegalArgumentException("Стоимость единицы в заказе (мешка) быть натуральным числом больше 0");
+        }
+        if (bagWeight <= 0) {
+            throw new IllegalArgumentException("Нельзя продать  единицу заказа весом менее 1 кг");
+        }
         double cost = costOfBag / bagWeight;
         OrderReport orderReport = new OrderReport();
         for (Order order : sort(orderList)) {
@@ -30,6 +39,7 @@ public class OrderService {
         if (discount < 0 || discount > 100) {
             throw new IllegalArgumentException("Скидка должна быть от 0 до 100%");
         }
+
         return orderWeight * (cost * ((100 - discount) / 100.0));
     }
 }
