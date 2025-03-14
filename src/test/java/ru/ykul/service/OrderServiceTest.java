@@ -47,8 +47,10 @@ class OrderServiceTest {
 
 
     @Test
+    @org.junit.jupiter.api.Order(0)
     @DisplayName("0. single report")
     void OrderReport_createOrderReport_shouldReturnOrderReportWithSingleString() {
+        OrderService orderService = new OrderService();
         List<Order> orderList = new ArrayList<>();
         String clientName = "Industrial";
         Double orderCost = 79200.0;
@@ -71,8 +73,10 @@ class OrderServiceTest {
 //     - Входные данные: `orderList = []`, `discount = 0`, `costOfBag = 5`, `costStep = 10`, `bagWeight = 1`
 //     - Ожидаемый результат: Пустой отчет или сообщение о том, что нет заказов.
     @Test
+    @org.junit.jupiter.api.Order(1)
     @DisplayName("1. empty list")
     void orderService_createOrderService_shouldReturnErrorIfReportEmpty() {
+        OrderService orderService = new OrderService();
         List<Order> orderList = Collections.emptyList();
         double discount = 50;
         double costOfBag = 50;
@@ -84,6 +88,7 @@ class OrderServiceTest {
     }
 
     @Test
+    @org.junit.jupiter.api.Order(2)
     @DisplayName("2. normal report")
     void OrderReport_createOrderReport_shouldReturnOrderReportWithTwoClients() {
         List<Order> orderList = new ArrayList<>();
@@ -108,8 +113,10 @@ class OrderServiceTest {
     }
 
     @Test
+    @org.junit.jupiter.api.Order(3)
     @DisplayName("3. zero discount report")
     void OrderReport_createOrderReport_shouldReturnOrderReportWithZeroDiscount() {
+        OrderService orderService = new OrderService();
         List<Order> orderList = new ArrayList<>();
         String clientName = "Industrial";
         Double orderCost = 79200.0;
@@ -128,8 +135,10 @@ class OrderServiceTest {
     }
 
     @Test
+    @org.junit.jupiter.api.Order(4)
     @DisplayName("4. zero costOfBag report")
     void OrderReport_createOrderReport_shouldReturnOrderReportWithZeroCostOfBag() {
+        OrderService orderService = new OrderService();
         List<Order> orderList = new ArrayList<>();
         String clientName = "Industrial";
         Double orderCost = 79200.0;
