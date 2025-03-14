@@ -28,7 +28,7 @@ public class OrderService {
     }
 
     List<Order> sort(List<Order> orderList) {
-        Collections.sort(orderList, Comparator.comparing(Order::getDate));
+        orderList.sort(Comparator.comparing(Order::getDate));
         return orderList;
     }
 
