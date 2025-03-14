@@ -1,5 +1,7 @@
 package ru.ykul.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class OrderServiceTest {
+    Logger log = LogManager.getLogger("Logger");
     final OrderService orderService = new OrderService();
 
     @BeforeEach
@@ -65,7 +68,7 @@ class OrderServiceTest {
 
         OrderReport orderReport = orderService.createOrderReport(orderList, discount, costOfBag, costStep, bagWeight);
 
-        assertEquals(orderReport.toString(), (clientName + " - " + orderCost * ((100 - discount) / 100)) + "\n");
+        assertEquals(((clientName + " - " + orderCost * ((100 - discount) / 100)) + "\n"),orderReport.toString());
     }
 
 
@@ -109,7 +112,7 @@ class OrderServiceTest {
 
         OrderReport orderReport = orderService.createOrderReport(orderList, discount, costOfBag, costStep, bagWeight);
 
-        assertEquals(orderReport.toString(), ((clientName + " - " + orderCost * ((100 - discount) / 100)) + "\n") + ((clientName1 + " - " + orderCost1 * ((100 - discount) / 100)) + "\n"));
+        assertEquals( (((clientName + " - " + orderCost * ((100 - discount) / 100)) + "\n") + ((clientName1 + " - " + orderCost1 * ((100 - discount) / 100)) + "\n")),orderReport.toString());
     }
 
     @Test
@@ -151,9 +154,9 @@ class OrderServiceTest {
         double costStep = 5;
         int bagWeight = 50;
 
-        OrderReport orderReport = orderService.createOrderReport(orderList, discount, costOfBag, costStep, bagWeight);
-
-        assertEquals(orderReport.toString(), (clientName + " - " + orderCost * ((100 - discount) / 100)) + "\n");
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderService.createOrderReport(orderList, discount, costOfBag, costStep, bagWeight);
+        });
     }
 
 
