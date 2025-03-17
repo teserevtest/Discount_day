@@ -2,6 +2,7 @@ package ru.ykul.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderReport {
     private Map<String, Double> orderReportMap = new LinkedHashMap<>();
@@ -12,8 +13,8 @@ public class OrderReport {
 
     @Override
     public String toString() {
-        StringBuilder orderMapStringBuilder = new StringBuilder();
-        orderReportMap.forEach((key, value) -> orderMapStringBuilder.append(key + " - " + value + "\n"));
-        return orderMapStringBuilder.toString();
+        return orderReportMap.entrySet().stream()
+                .map(entry -> entry.getKey() + " - " + entry.getValue())
+                .collect(Collectors.joining("\n"))+"\n";
     }
 }

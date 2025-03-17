@@ -13,6 +13,7 @@ import ru.ykul.service.orderparsers.OrderParserByOctothorpe;
 import ru.ykul.service.orderparsers.OrderParserByPipe;
 import ru.ykul.service.orderparsers.OrderParserFactory;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,7 @@ public class OrderManagerTest {
     private OrderManager orderManagerMocked;
 
     @Test
-    public void writeOrderReport_should_writeReportFile()  {
+    public void writeOrderReport_should_writeReportFile() throws IOException {
 
 
         String testInFileNamePipe = "test.txt";

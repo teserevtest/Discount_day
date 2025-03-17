@@ -5,18 +5,28 @@ import ru.ykul.model.Order;
 import ru.ykul.model.OrderReport;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Stream;
+
+//import static jdk.internal.org.jline.utils.InfoCmp.Capability.lines;
 
 public class FileOrderService {
-    private static final String ORDER_PATH = Main.class.getClassLoader().getResource("orders").getPath().toString();
+    private static final String ORDER_PATH = Objects.requireNonNull(Main.class.getClassLoader().getResource("orders")).getPath().toString().replaceFirst("^.", "");
 
-    public String[] read(String inFileName) {
-        if (inFileName == null || inFileName == "") {
+    public String[] read(String inFileName) throws IOException {
+        System.out.println(ORDER_PATH);
+        if (inFileName == null || inFileName.isEmpty()) {
             throw new IllegalArgumentException("Incorrect value");
         }
-        String lines[] = getFileAsString(inFileName).split("\\r?\\n");
-        return lines;
+        {
+            try (Stream<String> lines = Files.lines(Path.of(ORDER_PATH +"/" +inFileName))) {
+                return lines.toArray(String[]::new);
+            }
+        }
     }
 
     public void write(OrderReport orderReport, String outFileName) {

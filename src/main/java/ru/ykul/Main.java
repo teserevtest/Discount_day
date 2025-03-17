@@ -6,6 +6,8 @@ import ru.ykul.service.FileOrderService;
 import ru.ykul.service.OrderService;
 import ru.ykul.service.orderparsers.OrderParserFactory;
 
+import java.io.IOException;
+
 public class Main {
     private static int discount = 50;
     private static int bagWeight = 50;
@@ -14,7 +16,7 @@ public class Main {
     private static String inFileName = "discount_day.txt";
     private static String outFileName = "orders.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FileOrderService fileOrderService = new FileOrderService();
         OrderService orderService = new OrderService();
         OrderParserFactory orderParserFactory = new OrderParserFactory();

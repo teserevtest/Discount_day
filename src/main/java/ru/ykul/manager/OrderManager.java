@@ -7,6 +7,7 @@ import ru.ykul.service.orderparsers.OrderParserFactory;
 import ru.ykul.service.OrderService;
 import ru.ykul.service.orderparsers.OrderParser;
 
+import java.io.IOException;
 import java.util.List;
 
 public class OrderManager {
@@ -20,7 +21,7 @@ public class OrderManager {
         this.orderParserFactory = orderParserFactory;
     }
 
-    public void writeOrderReport(String inFileName, String outFileName, double discount, double cost, double discountStep, int bagWeight) {
+    public void writeOrderReport(String inFileName, String outFileName, double discount, double cost, double discountStep, int bagWeight) throws IOException {
         OrderParser orderParser = orderParserFactory.getOrderParser(inFileName);
         String[] stringOrders = fileOrderService.read(inFileName);
         List<Order> orders = orderParser.getOrderList(stringOrders);

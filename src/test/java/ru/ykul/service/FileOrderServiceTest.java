@@ -35,7 +35,7 @@ class FileOrderServiceTest {
 
     @Test
     @DisplayName("0. read txt")
-    void fileOrderService_read_shouldReadTxtFile_ifFileIsCorrect() {
+    void fileOrderService_read_shouldReadTxtFile_ifFileIsCorrect() throws IOException {
         String fileName = "input.txt";
         String[] fileText = new String[1];
         fileText[0] = "2021-02-09T16:00:22|Industrial|8800";
@@ -44,7 +44,7 @@ class FileOrderServiceTest {
 
     @Test
     @DisplayName("1. read file")
-    void fileOrderService_read_shouldReadFileWithoutExtension_ifFileIsCorrect() {
+    void fileOrderService_read_shouldReadFileWithoutExtension_ifFileIsCorrect() throws IOException {
         String fileName = "input";
         String[] fileText = new String[1];
         fileText[0] = "2021-02-09T16:00:22#Industrial#8800";
@@ -53,7 +53,7 @@ class FileOrderServiceTest {
 
     @Test
     @DisplayName("2. read empty")
-    void fileOrderService_read_shouldReadTxtFile_ifFileEmpty() {
+    void fileOrderService_read_shouldReadTxtFile_ifFileEmpty() throws IOException {
         String fileName = "input_empty";
         Assertions.assertEquals("", fileOrderService.read(fileName)[0]);
     }
@@ -62,7 +62,7 @@ class FileOrderServiceTest {
     @DisplayName("3. read null file")
     void fileOrderService_read_shouldThrowException_ifFileNameIsNull() {
         String fileName = null;
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NoSuchFileException.class, () -> {
             fileOrderService.read(fileName);
         });
     }
@@ -71,7 +71,7 @@ class FileOrderServiceTest {
     @DisplayName("4. read missing file")
     void fileOrderService_read_shouldThrowException_ifFileNameIsMissing() {
         String fileName = "input_missing";
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NoSuchFileException.class, () -> {
             fileOrderService.read(fileName);
         }, "Input file format not supported!");
     }

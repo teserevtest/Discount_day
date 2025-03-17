@@ -4,16 +4,14 @@ import ru.ykul.model.Order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderParserByOctothorpe implements OrderParser {
 
     public List<Order> getOrderList(String[] stringOrders) {
-        List<Order> orders = new ArrayList<>();
-        for (String s : stringOrders) {
-            orders.add(parseStringToOrder(s));
-        }
-        return orders;
+        return Arrays.stream(stringOrders).map(this::parseStringToOrder).collect(Collectors.toList());
     }
 
     private Order parseStringToOrder(String string) {
