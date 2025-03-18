@@ -18,9 +18,12 @@ public class FileOrderService {
     private static final String ORDER_PATH = Objects.requireNonNull(Main.class.getClassLoader().getResource("orders")).getPath().toString().replaceFirst("^.", "");
 
     public String[] read(String inFileName) throws IOException {
-        System.out.println(ORDER_PATH);
         if (inFileName == null || inFileName.isEmpty()) {
             throw new IllegalArgumentException("Incorrect value");
+        }
+        File file = new File(ORDER_PATH +"/" +inFileName);
+        if (file.exists() && file.length() == 0) {
+            throw new IllegalArgumentException("Empty file!");
         }
         {
             try (Stream<String> lines = Files.lines(Path.of(ORDER_PATH +"/" +inFileName))) {

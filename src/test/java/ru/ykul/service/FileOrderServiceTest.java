@@ -55,14 +55,16 @@ class FileOrderServiceTest {
     @DisplayName("2. read empty")
     void fileOrderService_read_shouldReadTxtFile_ifFileEmpty() throws IOException {
         String fileName = "input_empty";
-        Assertions.assertEquals("", fileOrderService.read(fileName)[0]);
+        assertThrows(IllegalArgumentException.class, () -> {
+            fileOrderService.read(fileName);
+        });
     }
 
     @Test
     @DisplayName("3. read null file")
     void fileOrderService_read_shouldThrowException_ifFileNameIsNull() {
         String fileName = null;
-        assertThrows(NoSuchFileException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             fileOrderService.read(fileName);
         });
     }
