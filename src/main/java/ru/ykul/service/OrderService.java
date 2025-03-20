@@ -6,7 +6,7 @@ import ru.ykul.model.OrderReport;
 import java.util.*;
 
 public class OrderService {
-    public OrderReport createOrderReport(List<Order> orderList, double discount, double costOfBag, double costStep, int bagWeight) {
+    public OrderReport createOrderReport(List<Order> orderList, double maxDiscount, double costOfBag, double costStep, int bagWeight) {
         if (orderList.isEmpty()) {
             throw new IllegalArgumentException("Пустой лист заказов");
         }
@@ -16,6 +16,7 @@ public class OrderService {
         if (bagWeight <= 0) {
             throw new IllegalArgumentException("Нельзя продать  единицу заказа весом менее 1 кг");
         }
+        double discount = maxDiscount;
         double cost = costOfBag / bagWeight;
         OrderReport orderReport = new OrderReport();
         for (Order order : sort(orderList)) {
